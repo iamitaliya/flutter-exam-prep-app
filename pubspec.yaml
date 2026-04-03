@@ -1,0 +1,58 @@
+name: flutter_exam_prep
+description: A cross-platform exam preparation app with topic-based progress tracking.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: '>=3.22.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  hooks_riverpod: ^2.5.1
+  flutter_hooks: ^0.20.5
+  riverpod_annotation: ^2.3.5
+
+  # Navigation
+  go_router: ^13.2.4
+
+  # Local Storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.3
+  path_provider: ^2.1.3
+
+  # Data
+  equatable: ^2.0.5
+  uuid: ^4.3.3
+
+  # UI & Design
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.0
+  fl_chart: ^0.67.0
+  percent_indicator: ^4.2.3
+  shimmer: ^3.0.0
+
+  # Media
+  video_player: ^2.8.6
+  cached_network_image: ^3.3.1
+
+  # Ads
+  google_mobile_ads: ^5.1.0
+
+  # IAP (ready for future Pro implementation)
+  in_app_purchase: ^3.1.13
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/data/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
