@@ -1,520 +1,871 @@
 {
   "topics": [
     {
-      "id": "flutter_basics",
+      "id": "topic_flutter_basics",
       "name": "Flutter Basics",
-      "description": "Core Flutter concepts, widgets, and the widget tree.",
-      "totalQuestions": 8,
+      "description": "Core Flutter framework concepts, widgets, and rendering model",
+      "totalQuestions": 10,
       "orderIndex": 0
     },
     {
-      "id": "dart_language",
+      "id": "topic_dart_language",
       "name": "Dart Language",
-      "description": "Dart programming fundamentals, null safety, and async.",
-      "totalQuestions": 8,
+      "description": "Dart syntax, null safety, async/await, and language features",
+      "totalQuestions": 10,
       "orderIndex": 1
     },
     {
-      "id": "state_management",
+      "id": "topic_state_management",
       "name": "State Management",
-      "description": "Managing app state with Riverpod, Provider, and BLoC.",
-      "totalQuestions": 7,
+      "description": "Riverpod, Provider, setState, and state management patterns",
+      "totalQuestions": 10,
       "orderIndex": 2
     },
     {
-      "id": "navigation",
-      "name": "Navigation & Routing",
-      "description": "Flutter navigation patterns, GoRouter, and deep linking.",
-      "totalQuestions": 7,
+      "id": "topic_ui_widgets",
+      "name": "UI & Widgets",
+      "description": "Layouts, scrolling, animations, and Material Design widgets",
+      "totalQuestions": 10,
       "orderIndex": 3
+    },
+    {
+      "id": "topic_architecture",
+      "name": "Architecture & Testing",
+      "description": "Clean architecture, navigation, testing, and best practices",
+      "totalQuestions": 10,
+      "orderIndex": 4
     }
   ],
   "questions": [
     {
-      "id": "fb_001",
-      "topicId": "flutter_basics",
+      "id": "q_fb_001",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the difference between StatelessWidget and StatefulWidget?",
+      "questionText": "What is the difference between a StatelessWidget and a StatefulWidget?",
       "options": [
-        { "id": "fb_001_a", "text": "StatelessWidget holds mutable state; StatefulWidget does not." },
-        { "id": "fb_001_b", "text": "StatelessWidget describes a widget that never changes; StatefulWidget can rebuild when its state changes." },
-        { "id": "fb_001_c", "text": "StatelessWidget is faster because it always uses const constructors." },
-        { "id": "fb_001_d", "text": "There is no functional difference — it's purely stylistic." }
+        { "id": "a", "text": "StatelessWidget has a BuildContext, StatefulWidget does not" },
+        { "id": "b", "text": "StatelessWidget never rebuilds; StatefulWidget can rebuild when its State changes" },
+        { "id": "c", "text": "StatelessWidget is faster and should always be used" },
+        { "id": "d", "text": "StatefulWidget is only for screens, not for small widgets" }
       ],
-      "correctOptionIds": ["fb_001_b"],
-      "explanation": "A StatelessWidget describes a part of the user interface that can only depend on its configuration and the BuildContext. A StatefulWidget, on the other hand, creates a State object that can hold mutable data and trigger rebuilds via setState().",
+      "correctOptionIds": ["b"],
+      "explanation": "A StatelessWidget describes a part of the user interface that can depend only on the configuration information in the object itself and the BuildContext. A StatefulWidget is associated with a State object that can rebuild the widget tree by calling setState().",
       "difficultyLevel": 1,
       "orderIndex": 0
     },
     {
-      "id": "fb_002",
-      "topicId": "flutter_basics",
+      "id": "q_fb_002",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "Which widget should you use to create a scrollable list of children that are built lazily?",
+      "questionText": "Which method is called when Flutter needs to build the widget tree for a StatelessWidget?",
       "options": [
-        { "id": "fb_002_a", "text": "Column" },
-        { "id": "fb_002_b", "text": "ListView" },
-        { "id": "fb_002_c", "text": "Stack" },
-        { "id": "fb_002_d", "text": "Row" }
+        { "id": "a", "text": "init()" },
+        { "id": "b", "text": "render()" },
+        { "id": "c", "text": "build(BuildContext context)" },
+        { "id": "d", "text": "create()" }
       ],
-      "correctOptionIds": ["fb_002_b"],
-      "explanation": "ListView builds its children lazily, meaning only the items visible on screen (plus a small buffer) are built and rendered. Column, by contrast, builds all children at once and does not scroll by default.",
+      "correctOptionIds": ["c"],
+      "explanation": "The build() method is the only required method in a StatelessWidget (and StatefulWidget's State). Flutter calls it whenever the widget needs to be rendered or re-rendered.",
       "difficultyLevel": 1,
       "orderIndex": 1
     },
     {
-      "id": "fb_003",
-      "topicId": "flutter_basics",
+      "id": "q_fb_003",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
-      "answerType": "multiSelect",
-      "questionText": "Which of the following are valid layout widgets in Flutter? (Select all that apply)",
+      "answerType": "multipleChoice",
+      "questionText": "What does calling setState() do in a StatefulWidget?",
       "options": [
-        { "id": "fb_003_a", "text": "Row" },
-        { "id": "fb_003_b", "text": "Column" },
-        { "id": "fb_003_c", "text": "Stack" },
-        { "id": "fb_003_d", "text": "Navigator" }
+        { "id": "a", "text": "Immediately updates the UI synchronously" },
+        { "id": "b", "text": "Marks the widget as dirty and schedules a rebuild on the next frame" },
+        { "id": "c", "text": "Reloads the entire app" },
+        { "id": "d", "text": "Sends a signal to the parent widget" }
       ],
-      "correctOptionIds": ["fb_003_a", "fb_003_b", "fb_003_c"],
-      "explanation": "Row, Column, and Stack are all layout widgets. Row and Column place children linearly (horizontal and vertical respectively). Stack overlaps children. Navigator is a routing widget, not a layout widget.",
+      "correctOptionIds": ["b"],
+      "explanation": "setState() marks the State object as dirty and schedules a rebuild. Flutter batches rebuilds and processes them on the next frame, making it efficient even when setState() is called multiple times.",
       "difficultyLevel": 1,
       "orderIndex": 2
     },
     {
-      "id": "fb_004",
-      "topicId": "flutter_basics",
+      "id": "q_fb_004",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "What does the `const` keyword do when applied to a widget constructor?",
+      "answerType": "multiSelect",
+      "questionText": "Which of the following are correct about the Flutter widget tree? (Select all that apply)",
       "options": [
-        { "id": "fb_004_a", "text": "It prevents the widget from ever being garbage collected." },
-        { "id": "fb_004_b", "text": "It marks the widget as compile-time constant, allowing Flutter to reuse the same instance and skip rebuilds." },
-        { "id": "fb_004_c", "text": "It makes the widget read-only at runtime." },
-        { "id": "fb_004_d", "text": "It has no practical effect — it's a style convention." }
+        { "id": "a", "text": "Every Flutter app has a widget tree, element tree, and render tree" },
+        { "id": "b", "text": "Widgets are immutable descriptions of the UI" },
+        { "id": "c", "text": "Changing a widget's properties modifies the existing widget object" },
+        { "id": "d", "text": "Elements are long-lived objects that hold widget configuration" }
       ],
-      "correctOptionIds": ["fb_004_b"],
-      "explanation": "Using `const` for a widget constructor creates a compile-time constant. Flutter can identify that two `const` widgets with the same arguments are identical and reuse the existing element tree, skipping expensive rebuilds.",
+      "correctOptionIds": ["a", "b", "d"],
+      "explanation": "Flutter maintains three trees: widgets (immutable blueprints), elements (long-lived managers), and render objects (layout & painting). Widgets are immutable — you create new widget objects rather than mutating them. Elements persist across rebuilds and reconcile widget changes.",
       "difficultyLevel": 2,
       "orderIndex": 3
     },
     {
-      "id": "fb_005",
-      "topicId": "flutter_basics",
+      "id": "q_fb_005",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the purpose of the `BuildContext` passed to a widget's `build` method?",
+      "questionText": "What is a BuildContext in Flutter?",
       "options": [
-        { "id": "fb_005_a", "text": "It is a handle to the widget's location in the widget tree." },
-        { "id": "fb_005_b", "text": "It stores the widget's internal state." },
-        { "id": "fb_005_c", "text": "It is used to configure HTTP requests." },
-        { "id": "fb_005_d", "text": "It represents the platform (Android or iOS)." }
+        { "id": "a", "text": "A handle to the location of a widget in the widget tree" },
+        { "id": "b", "text": "A configuration object for the build system" },
+        { "id": "c", "text": "The root of the entire app widget tree" },
+        { "id": "d", "text": "An object that manages state changes" }
       ],
-      "correctOptionIds": ["fb_005_a"],
-      "explanation": "BuildContext is a reference to the location of a widget within the widget tree. It is used by Flutter to traverse up the tree to find inherited widgets (e.g., Theme, MediaQuery, Navigator) and to access the surrounding context.",
+      "correctOptionIds": ["a"],
+      "explanation": "BuildContext is a handle to the location of a widget in the widget tree. It provides access to the theme, media query, inherited widgets, and other tree-level information. Each widget receives its own BuildContext in the build() method.",
       "difficultyLevel": 2,
       "orderIndex": 4
     },
     {
-      "id": "fb_006",
-      "topicId": "flutter_basics",
+      "id": "q_fb_006",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
-      "answerType": "textEntry",
-      "questionText": "What Flutter widget class would you extend to create a widget that never needs to rebuild based on external state changes?",
-      "correctTextAnswer": "StatelessWidget",
-      "explanation": "StatelessWidget is the base class for widgets that have no mutable state. Its `build` method is called only when the parent rebuilds it or when its own configuration (constructor arguments) changes.",
+      "answerType": "multipleChoice",
+      "questionText": "Which widget is used to display a scrollable list of children that are created on demand?",
+      "options": [
+        { "id": "a", "text": "Column" },
+        { "id": "b", "text": "ListView.builder" },
+        { "id": "c", "text": "GridView" },
+        { "id": "d", "text": "Stack" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "ListView.builder creates list items lazily — only those visible on screen are built. This makes it ideal for long or infinite lists. Column renders all children at once regardless of visibility.",
       "difficultyLevel": 1,
       "orderIndex": 5
     },
     {
-      "id": "fb_007",
-      "topicId": "flutter_basics",
+      "id": "q_fb_007",
+      "topicId": "topic_flutter_basics",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "Which method in a StatefulWidget's State class is called exactly once when the State object is first inserted into the tree?",
+      "questionText": "What is the purpose of the Key parameter in widgets?",
       "options": [
-        { "id": "fb_007_a", "text": "build()" },
-        { "id": "fb_007_b", "text": "didUpdateWidget()" },
-        { "id": "fb_007_c", "text": "initState()" },
-        { "id": "fb_007_d", "text": "dispose()" }
+        { "id": "a", "text": "To assign a unique ID for database storage" },
+        { "id": "b", "text": "To help Flutter identify which widgets in the tree have changed during reconciliation" },
+        { "id": "c", "text": "To provide accessibility labels" },
+        { "id": "d", "text": "To encrypt widget data" }
       ],
-      "correctOptionIds": ["fb_007_c"],
-      "explanation": "initState() is called once when the State object is created and inserted into the tree. It is the correct place to do one-time setup such as subscribing to streams or initializing controllers.",
-      "difficultyLevel": 1,
+      "correctOptionIds": ["b"],
+      "explanation": "Keys help Flutter identify widgets during the reconciliation process when the widget tree changes. They are especially important when reordering a list of stateful widgets, ensuring the correct State is associated with the correct widget.",
+      "difficultyLevel": 2,
       "orderIndex": 6
     },
     {
-      "id": "fb_008",
-      "topicId": "flutter_basics",
+      "id": "q_fb_008",
+      "topicId": "topic_flutter_basics",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "Which lifecycle method in a StatefulWidget's State is called when the widget is first inserted into the tree?",
+      "options": [
+        { "id": "a", "text": "build()" },
+        { "id": "b", "text": "didUpdateWidget()" },
+        { "id": "c", "text": "initState()" },
+        { "id": "d", "text": "activate()" }
+      ],
+      "correctOptionIds": ["c"],
+      "explanation": "initState() is called exactly once when the State object is created and inserted into the tree. It is the correct place to initialize state, subscribe to streams, or set up animations. Always call super.initState() first.",
+      "difficultyLevel": 1,
+      "orderIndex": 7
+    },
+    {
+      "id": "q_fb_009",
+      "topicId": "topic_flutter_basics",
+      "questionType": "text",
+      "answerType": "textEntry",
+      "questionText": "What widget wraps a child and gives it an explicit width and height? (Enter the widget name)",
+      "options": [],
+      "correctOptionIds": [],
+      "correctTextAnswer": "SizedBox",
+      "explanation": "SizedBox is used to give a widget a specific size. It creates a box with specific dimensions. SizedBox.shrink() creates a zero-size box, and SizedBox.expand() fills all available space.",
+      "difficultyLevel": 1,
+      "orderIndex": 8
+    },
+    {
+      "id": "q_fb_010",
+      "topicId": "topic_flutter_basics",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What does the Expanded widget do inside a Row or Column?",
+      "options": [
+        { "id": "a", "text": "It makes the child widget bigger than its natural size" },
+        { "id": "b", "text": "It causes the child to take up all remaining available space along the main axis" },
+        { "id": "c", "text": "It adds padding around the child widget" },
+        { "id": "d", "text": "It makes the Row or Column scrollable" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "Expanded causes its child to fill all remaining space along the main axis of a Flex widget (Row or Column). Multiple Expanded widgets share the available space according to their flex factors.",
+      "difficultyLevel": 1,
+      "orderIndex": 9
+    },
+    {
+      "id": "q_dart_001",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What does the '?' symbol mean when used after a type declaration in Dart (e.g., String?)?",
+      "options": [
+        { "id": "a", "text": "The variable is optional and may not be declared" },
+        { "id": "b", "text": "The variable is nullable and can hold a null value" },
+        { "id": "c", "text": "The variable requires a default value" },
+        { "id": "d", "text": "It is a conditional declaration" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "In Dart's null safety system, 'String?' means the variable can hold either a String value or null. Without the '?', the type is non-nullable and must always have a non-null value. Null safety was introduced in Dart 2.12.",
+      "difficultyLevel": 1,
+      "orderIndex": 0
+    },
+    {
+      "id": "q_dart_002",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the output of: print(5 ~/ 2); in Dart?",
+      "options": [
+        { "id": "a", "text": "2.5" },
+        { "id": "b", "text": "2" },
+        { "id": "c", "text": "3" },
+        { "id": "d", "text": "Error" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "The ~/ operator in Dart is the integer division (truncating division) operator. 5 ~/ 2 gives 2 (not 2.5). For floating point division use / which gives 2.5.",
+      "difficultyLevel": 2,
+      "orderIndex": 1
+    },
+    {
+      "id": "q_dart_003",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What keyword is used to declare a variable whose value will not change after initialization?",
+      "options": [
+        { "id": "a", "text": "static" },
+        { "id": "b", "text": "fixed" },
+        { "id": "c", "text": "final" },
+        { "id": "d", "text": "immutable" }
+      ],
+      "correctOptionIds": ["c"],
+      "explanation": "The 'final' keyword means the variable can only be set once. The 'const' keyword is stricter — it means the value must be a compile-time constant. Use 'final' when the value is set at runtime but won't change thereafter.",
+      "difficultyLevel": 1,
+      "orderIndex": 2
+    },
+    {
+      "id": "q_dart_004",
+      "topicId": "topic_dart_language",
       "questionType": "text",
       "answerType": "multiSelect",
-      "questionText": "Which lifecycle methods should you override to clean up resources in a StatefulWidget? (Select all that apply)",
+      "questionText": "Which of the following are true about async/await in Dart? (Select all that apply)",
       "options": [
-        { "id": "fb_008_a", "text": "dispose()" },
-        { "id": "fb_008_b", "text": "deactivate()" },
-        { "id": "fb_008_c", "text": "initState()" },
-        { "id": "fb_008_d", "text": "build()" }
+        { "id": "a", "text": "An async function always returns a Future" },
+        { "id": "b", "text": "await can only be used inside an async function" },
+        { "id": "c", "text": "await blocks the entire Dart thread" },
+        { "id": "d", "text": "async/await is syntactic sugar over Future chaining" }
       ],
-      "correctOptionIds": ["fb_008_a", "fb_008_b"],
-      "explanation": "dispose() is the primary place to release resources (cancel timers, close streams, dispose controllers). deactivate() is called when the State is removed from the tree temporarily and can also be used for cleanup.",
+      "correctOptionIds": ["a", "b", "d"],
+      "explanation": "async functions always return a Future (even if you return a non-Future value, it's wrapped). await can only be used in async functions. Crucially, await does NOT block the thread — it suspends the current function and lets the event loop process other events. async/await is indeed syntactic sugar over Future.then() chains.",
+      "difficultyLevel": 2,
+      "orderIndex": 3
+    },
+    {
+      "id": "q_dart_005",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is a mixin in Dart?",
+      "options": [
+        { "id": "a", "text": "A type of abstract class that cannot be instantiated" },
+        { "id": "b", "text": "A way to reuse a class's code in multiple class hierarchies without inheritance" },
+        { "id": "c", "text": "A special constructor that blends multiple classes" },
+        { "id": "d", "text": "An interface that requires implementing all methods" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "Mixins allow you to reuse code across multiple class hierarchies without traditional inheritance. A class uses a mixin with the 'with' keyword. Dart's mixin system solves the 'diamond problem' of multiple inheritance by linearizing the mixin application.",
+      "difficultyLevel": 2,
+      "orderIndex": 4
+    },
+    {
+      "id": "q_dart_006",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the '??' operator in Dart called and what does it do?",
+      "options": [
+        { "id": "a", "text": "Double-null; throws an error if both sides are null" },
+        { "id": "b", "text": "Null-coalescing; returns the left operand if non-null, otherwise the right" },
+        { "id": "c", "text": "Null-check; throws if the value is null" },
+        { "id": "d", "text": "Null-assertion; forces a nullable type to non-null" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "?? is the null-coalescing operator. 'expr1 ?? expr2' evaluates to expr1 if it is non-null, otherwise evaluates and returns expr2. It's useful for providing default values: String name = input ?? 'Default';",
+      "difficultyLevel": 1,
+      "orderIndex": 5
+    },
+    {
+      "id": "q_dart_007",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the difference between 'const' and 'final' in Dart?",
+      "options": [
+        { "id": "a", "text": "There is no difference; they are interchangeable" },
+        { "id": "b", "text": "const must be a compile-time constant; final is set once at runtime" },
+        { "id": "c", "text": "final must be a compile-time constant; const is set once at runtime" },
+        { "id": "d", "text": "const is for primitives only; final is for objects" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "const requires the value to be known at compile time (e.g., const pi = 3.14;). final allows the value to be determined at runtime but can only be set once (e.g., final now = DateTime.now();). const objects are canonicalized — identical const values share the same instance.",
+      "difficultyLevel": 2,
+      "orderIndex": 6
+    },
+    {
+      "id": "q_dart_008",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What does the 'late' keyword do in Dart null safety?",
+      "options": [
+        { "id": "a", "text": "Declares a variable that is initialized asynchronously" },
+        { "id": "b", "text": "Declares a non-nullable variable that will be initialized before first use" },
+        { "id": "c", "text": "Makes a final variable settable multiple times" },
+        { "id": "d", "text": "Delays compilation of a variable declaration" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "The 'late' keyword tells Dart that a non-nullable variable will be initialized before it is first read. If it is read before being initialized, a LateInitializationError is thrown at runtime. It's commonly used for non-nullable fields that can't be set in the constructor.",
       "difficultyLevel": 2,
       "orderIndex": 7
     },
     {
-      "id": "dl_001",
-      "topicId": "dart_language",
+      "id": "q_dart_009",
+      "topicId": "topic_dart_language",
+      "questionType": "text",
+      "answerType": "textEntry",
+      "questionText": "What Dart collection type stores key-value pairs? (Enter the type name)",
+      "options": [],
+      "correctOptionIds": [],
+      "correctTextAnswer": "Map",
+      "explanation": "A Map is a collection of key-value pairs where each key is unique. Dart Maps can be created with literals: {'key': 'value'} or Map<String, int>(). Common operations include map[key], map.containsKey(), map.entries, and map.forEach().",
+      "difficultyLevel": 1,
+      "orderIndex": 8
+    },
+    {
+      "id": "q_dart_010",
+      "topicId": "topic_dart_language",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "In Dart null safety, what does the `?` suffix on a type (e.g., `String?`) mean?",
+      "questionText": "What is a Stream in Dart?",
       "options": [
-        { "id": "dl_001_a", "text": "The variable is optional and can be omitted from function calls." },
-        { "id": "dl_001_b", "text": "The variable may hold either a value of that type or null." },
-        { "id": "dl_001_c", "text": "The variable uses lazy evaluation." },
-        { "id": "dl_001_d", "text": "The variable can only be set once." }
+        { "id": "a", "text": "A single asynchronous value that completes once" },
+        { "id": "b", "text": "A sequence of asynchronous events over time" },
+        { "id": "c", "text": "A data structure for high-performance I/O" },
+        { "id": "d", "text": "A type of Future that can be cancelled" }
       ],
-      "correctOptionIds": ["dl_001_b"],
-      "explanation": "In Dart's sound null safety system, `String?` means the variable is *nullable* — it can hold a String value or null. Without the `?`, the type is non-nullable and the compiler guarantees it will never be null.",
-      "difficultyLevel": 1,
+      "correctOptionIds": ["b"],
+      "explanation": "A Stream is a sequence of asynchronous events (similar to an asynchronous Iterable). You can listen to a Stream with stream.listen(), or use async/await with 'await for'. Streams can be single-subscription or broadcast (multiple listeners).",
+      "difficultyLevel": 2,
+      "orderIndex": 9
+    },
+    {
+      "id": "q_sm_001",
+      "topicId": "topic_state_management",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "In Riverpod, what is the difference between ref.watch() and ref.read()?",
+      "options": [
+        { "id": "a", "text": "watch() reads once; read() subscribes to changes" },
+        { "id": "b", "text": "watch() subscribes and rebuilds on change; read() reads once without subscribing" },
+        { "id": "c", "text": "They are functionally identical" },
+        { "id": "d", "text": "read() is for async providers; watch() is for sync providers" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "ref.watch() subscribes to the provider and causes the widget or provider to rebuild whenever the value changes. ref.read() reads the current value exactly once without subscribing. Use watch() in build() and provider bodies; use read() in event handlers and callbacks.",
+      "difficultyLevel": 2,
       "orderIndex": 0
     },
     {
-      "id": "dl_002",
-      "topicId": "dart_language",
+      "id": "q_sm_002",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the output of the following Dart code?\n\nvoid main() {\n  int? x;\n  print(x ?? 42);\n}",
+      "questionText": "What type of provider would you use for state that can be mutated over time in Riverpod?",
       "options": [
-        { "id": "dl_002_a", "text": "null" },
-        { "id": "dl_002_b", "text": "42" },
-        { "id": "dl_002_c", "text": "0" },
-        { "id": "dl_002_d", "text": "A compile error" }
+        { "id": "a", "text": "Provider" },
+        { "id": "b", "text": "FutureProvider" },
+        { "id": "c", "text": "StateNotifierProvider" },
+        { "id": "d", "text": "StreamProvider" }
       ],
-      "correctOptionIds": ["dl_002_b"],
-      "explanation": "The `??` operator (null-coalescing operator) returns the left-hand operand if it is non-null, otherwise returns the right-hand operand. Since `x` is null, the expression evaluates to 42.",
-      "difficultyLevel": 1,
+      "correctOptionIds": ["c"],
+      "explanation": "StateNotifierProvider pairs with a StateNotifier class. The StateNotifier holds the current state and exposes methods to mutate it. The provider exposes the current state value and rebuilds watchers when state changes. This is the recommended pattern for mutable state in Riverpod.",
+      "difficultyLevel": 2,
       "orderIndex": 1
     },
     {
-      "id": "dl_003",
-      "topicId": "dart_language",
+      "id": "q_sm_003",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the purpose of the `async` and `await` keywords in Dart?",
+      "questionText": "What is ProviderScope in Riverpod?",
       "options": [
-        { "id": "dl_003_a", "text": "They enable multi-threaded parallel execution." },
-        { "id": "dl_003_b", "text": "They allow writing asynchronous code in a sequential, readable style using Futures." },
-        { "id": "dl_003_c", "text": "They are used exclusively for network requests." },
-        { "id": "dl_003_d", "text": "They prevent any code from running until the awaited task completes." }
+        { "id": "a", "text": "A widget that defines which providers are available to its subtree" },
+        { "id": "b", "text": "A class that limits which widgets can access a provider" },
+        { "id": "c", "text": "A debug tool for inspecting provider state" },
+        { "id": "d", "text": "An annotation for generating providers" }
       ],
-      "correctOptionIds": ["dl_003_b"],
-      "explanation": "Dart is single-threaded. The `async`/`await` syntax is syntactic sugar over Futures — it allows you to write async code that looks sequential and readable without callbacks. The event loop continues to process other events while awaiting.",
+      "correctOptionIds": ["a"],
+      "explanation": "ProviderScope is a widget that must wrap your entire app (usually at the root). It stores the state of all Riverpod providers. It can also be used to override providers for testing or to scope providers to a subtree.",
       "difficultyLevel": 1,
       "orderIndex": 2
     },
     {
-      "id": "dl_004",
-      "topicId": "dart_language",
+      "id": "q_sm_004",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multiSelect",
-      "questionText": "Which of the following are valid ways to declare a constant in Dart? (Select all that apply)",
+      "questionText": "Which of the following are valid ways to listen to a provider in Riverpod? (Select all that apply)",
       "options": [
-        { "id": "dl_004_a", "text": "const int x = 5;" },
-        { "id": "dl_004_b", "text": "final int x = 5;" },
-        { "id": "dl_004_c", "text": "static int x = 5;" },
-        { "id": "dl_004_d", "text": "readonly int x = 5;" }
+        { "id": "a", "text": "ref.watch() in a ConsumerWidget build()" },
+        { "id": "b", "text": "ref.listen() to execute a callback on change" },
+        { "id": "c", "text": "ref.read() to subscribe to all future changes" },
+        { "id": "d", "text": "ref.watch() inside another provider" }
       ],
-      "correctOptionIds": ["dl_004_a", "dl_004_b"],
-      "explanation": "`const` declares a compile-time constant (the value must be known at compile time). `final` declares a run-time constant (assigned once, cannot be reassigned). `static` is not a constant modifier; `readonly` is not valid Dart syntax.",
+      "correctOptionIds": ["a", "b", "d"],
+      "explanation": "ref.watch() in build() rebuilds the widget on change. ref.listen() registers a callback (useful for navigation, showing dialogs). ref.watch() inside a provider creates a dependency. ref.read() does NOT subscribe to changes — it's a one-time read, not a way to listen.",
       "difficultyLevel": 2,
       "orderIndex": 3
     },
     {
-      "id": "dl_005",
-      "topicId": "dart_language",
+      "id": "q_sm_005",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What does the `late` keyword do in Dart?",
+      "questionText": "What is InheritedWidget used for in Flutter?",
       "options": [
-        { "id": "dl_005_a", "text": "It marks a variable as deprecated." },
-        { "id": "dl_005_b", "text": "It declares a non-nullable variable that will be initialized before its first use." },
-        { "id": "dl_005_c", "text": "It enables lazy loading of packages." },
-        { "id": "dl_005_d", "text": "It creates a variable that can only be accessed after a delay." }
+        { "id": "a", "text": "To create widgets that inherit layout properties from their parent" },
+        { "id": "b", "text": "To efficiently propagate data down the widget tree" },
+        { "id": "c", "text": "To inherit themes from the MaterialApp" },
+        { "id": "d", "text": "To extend StatefulWidget with extra capabilities" }
       ],
-      "correctOptionIds": ["dl_005_b"],
-      "explanation": "The `late` modifier tells the Dart compiler 'I will initialize this non-nullable variable before it is ever read'. If you read a `late` variable before it is initialized, a LateInitializationError is thrown at runtime.",
+      "correctOptionIds": ["b"],
+      "explanation": "InheritedWidget is a low-level mechanism for sharing data down the widget tree without passing it through every constructor. Provider, Theme, MediaQuery, and Navigator are all built on InheritedWidget. When the InheritedWidget's data changes, only dependent widgets rebuild.",
       "difficultyLevel": 2,
       "orderIndex": 4
     },
     {
-      "id": "dl_006",
-      "topicId": "dart_language",
+      "id": "q_sm_006",
+      "topicId": "topic_state_management",
       "questionType": "text",
-      "answerType": "textEntry",
-      "questionText": "What keyword do you use in Dart to define a function that returns a Stream of values over time?",
-      "correctTextAnswer": "async*",
-      "explanation": "An `async*` function (async generator) uses `yield` to emit values to a Stream. Each `yield` statement pushes a new value to the stream without terminating the function.",
-      "difficultyLevel": 3,
+      "answerType": "multipleChoice",
+      "questionText": "When should you use ValueNotifier over StateNotifier in Flutter?",
+      "options": [
+        { "id": "a", "text": "ValueNotifier is always better and should replace StateNotifier" },
+        { "id": "b", "text": "For simple single-value state with no complex logic; StateNotifier is better for complex state machines" },
+        { "id": "c", "text": "ValueNotifier is for async state; StateNotifier is for sync state" },
+        { "id": "d", "text": "They are functionally identical" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "ValueNotifier<T> is a simple ChangeNotifier that holds a single value and notifies listeners when it changes. It's great for simple local state. StateNotifier is more powerful for complex state machines with explicit state transitions via typed methods.",
+      "difficultyLevel": 2,
       "orderIndex": 5
     },
     {
-      "id": "dl_007",
-      "topicId": "dart_language",
+      "id": "q_sm_007",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "In Dart, which collection literal creates an immutable, ordered set of unique values?",
+      "questionText": "What does AsyncValue represent in Riverpod?",
       "options": [
-        { "id": "dl_007_a", "text": "{...}" },
-        { "id": "dl_007_b", "text": "<int>{...}" },
-        { "id": "dl_007_c", "text": "const {...}" },
-        { "id": "dl_007_d", "text": "[...]" }
+        { "id": "a", "text": "A nullable Future value" },
+        { "id": "b", "text": "A union type representing loading, error, or data states of an async operation" },
+        { "id": "c", "text": "A provider that automatically retries on error" },
+        { "id": "d", "text": "A Stream converted to a Future" }
       ],
-      "correctOptionIds": ["dl_007_c"],
-      "explanation": "`const {...}` creates a compile-time constant, immutable Set. Without `const`, `{...}` creates a mutable LinkedHashSet. `[...]` creates a List, not a Set.",
-      "difficultyLevel": 3,
+      "correctOptionIds": ["b"],
+      "explanation": "AsyncValue<T> is a union type with three states: AsyncLoading (operation in progress), AsyncError (failed with an error and stack trace), and AsyncData<T> (succeeded with a value). FutureProvider and StreamProvider expose AsyncValue. Use .when() to handle all three states cleanly.",
+      "difficultyLevel": 2,
       "orderIndex": 6
     },
     {
-      "id": "dl_008",
-      "topicId": "dart_language",
+      "id": "q_sm_008",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the cascade operator `..` used for in Dart?",
+      "questionText": "What is the correct place to call ref.read() in a ConsumerWidget?",
       "options": [
-        { "id": "dl_008_a", "text": "It chains null-safe method calls." },
-        { "id": "dl_008_b", "text": "It performs multiple operations on the same object without repeating the variable name." },
-        { "id": "dl_008_c", "text": "It spreads the contents of one list into another." },
-        { "id": "dl_008_d", "text": "It is used to inherit from multiple classes." }
+        { "id": "a", "text": "At the top of the build() method" },
+        { "id": "b", "text": "Inside event handlers and callbacks, not in build()" },
+        { "id": "c", "text": "In the widget constructor" },
+        { "id": "d", "text": "Inside a FutureBuilder" }
       ],
-      "correctOptionIds": ["dl_008_b"],
-      "explanation": "The cascade operator `..` allows you to make a sequence of operations on the same object. For example: `paint..color = Colors.red..strokeWidth = 5` sets two properties on the same Paint object without repeating `paint.`.",
+      "correctOptionIds": ["b"],
+      "explanation": "ref.read() should be used inside callbacks and event handlers (e.g., onPressed). Using ref.read() in build() works but is discouraged because it won't cause rebuilds when the value changes. Use ref.watch() for reactive reads in build().",
       "difficultyLevel": 2,
       "orderIndex": 7
     },
     {
-      "id": "sm_001",
-      "topicId": "state_management",
-      "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "In Riverpod, which provider type is best suited for managing a list that can be modified (e.g., a to-do list)?",
-      "options": [
-        { "id": "sm_001_a", "text": "Provider" },
-        { "id": "sm_001_b", "text": "FutureProvider" },
-        { "id": "sm_001_c", "text": "StateNotifierProvider" },
-        { "id": "sm_001_d", "text": "StreamProvider" }
-      ],
-      "correctOptionIds": ["sm_001_c"],
-      "explanation": "StateNotifierProvider exposes a StateNotifier which holds immutable state and provides methods to mutate it. It is ideal for complex, mutable state objects like lists. Provider is read-only, FutureProvider is for async data, and StreamProvider is for streams.",
-      "difficultyLevel": 2,
-      "orderIndex": 0
-    },
-    {
-      "id": "sm_002",
-      "topicId": "state_management",
-      "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "What does `ref.watch()` do in Riverpod, and how does it differ from `ref.read()`?",
-      "options": [
-        { "id": "sm_002_a", "text": "`ref.watch()` rebuilds the widget when the provider changes; `ref.read()` reads the value once without subscribing." },
-        { "id": "sm_002_b", "text": "`ref.watch()` is for async providers; `ref.read()` is for sync providers." },
-        { "id": "sm_002_c", "text": "They are identical — both subscribe to the provider." },
-        { "id": "sm_002_d", "text": "`ref.read()` is preferred in build methods; `ref.watch()` is for event handlers." }
-      ],
-      "correctOptionIds": ["sm_002_a"],
-      "explanation": "`ref.watch()` creates a subscription: when the watched provider's value changes, the widget rebuilds. `ref.read()` reads the current value without subscribing — it is safe to use inside callbacks/event handlers where rebuilds are not desired.",
-      "difficultyLevel": 2,
-      "orderIndex": 1
-    },
-    {
-      "id": "sm_003",
-      "topicId": "state_management",
-      "questionType": "text",
-      "answerType": "multiSelect",
-      "questionText": "Which of the following are advantages of using Riverpod for state management? (Select all that apply)",
-      "options": [
-        { "id": "sm_003_a", "text": "Providers are compile-time safe and testable outside the widget tree." },
-        { "id": "sm_003_b", "text": "It uses BuildContext to locate providers, making it explicit." },
-        { "id": "sm_003_c", "text": "Providers can depend on other providers forming a dependency graph." },
-        { "id": "sm_003_d", "text": "It supports auto-dispose to free resources when providers are no longer listened to." }
-      ],
-      "correctOptionIds": ["sm_003_a", "sm_003_c", "sm_003_d"],
-      "explanation": "Riverpod providers are declared globally and are compile-time safe. They can form dependency graphs (one provider watching another). Auto-dispose frees resources automatically. Unlike Provider, Riverpod does NOT require BuildContext to read a provider.",
-      "difficultyLevel": 2,
-      "orderIndex": 2
-    },
-    {
-      "id": "sm_004",
-      "topicId": "state_management",
-      "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "In the BLoC pattern, what is the role of an 'Event'?",
-      "options": [
-        { "id": "sm_004_a", "text": "It represents the current UI state to be rendered." },
-        { "id": "sm_004_b", "text": "It is an input dispatched to the BLoC representing something that happened." },
-        { "id": "sm_004_c", "text": "It is a callback that runs after a state transition." },
-        { "id": "sm_004_d", "text": "It is a type of widget that reacts to state changes." }
-      ],
-      "correctOptionIds": ["sm_004_b"],
-      "explanation": "In BLoC, Events are inputs — they represent things that happen (user tapped a button, data loaded, etc.). The BLoC processes events and emits new States. The UI listens to States and dispatches Events.",
-      "difficultyLevel": 2,
-      "orderIndex": 3
-    },
-    {
-      "id": "sm_005",
-      "topicId": "state_management",
-      "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "What is the main difference between `setState()` and a state management solution like Riverpod?",
-      "options": [
-        { "id": "sm_005_a", "text": "`setState()` requires more boilerplate than Riverpod." },
-        { "id": "sm_005_b", "text": "`setState()` is local to a widget subtree; Riverpod provides global, shared state accessible from anywhere." },
-        { "id": "sm_005_c", "text": "Riverpod is always faster than `setState()`." },
-        { "id": "sm_005_d", "text": "`setState()` is deprecated and should not be used." }
-      ],
-      "correctOptionIds": ["sm_005_b"],
-      "explanation": "`setState()` triggers a rebuild of only the calling State and its subtree — it is inherently local. Riverpod providers exist outside the widget tree and can be read or watched by any widget anywhere in the app, making them suitable for shared or app-wide state.",
-      "difficultyLevel": 1,
-      "orderIndex": 4
-    },
-    {
-      "id": "sm_006",
-      "topicId": "state_management",
+      "id": "q_sm_009",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "textEntry",
-      "questionText": "In Riverpod, what class do you extend to create a notifier that manages complex state with multiple update methods?",
-      "correctTextAnswer": "StateNotifier",
-      "explanation": "StateNotifier<T> is the base class for notifiers in Riverpod. It holds an immutable state T and exposes it via the `state` getter. Subclasses define methods that update `state`, triggering rebuilds in all watchers.",
-      "difficultyLevel": 2,
-      "orderIndex": 5
+      "questionText": "What method on StateNotifier is used to update the state? (Enter the property name)",
+      "options": [],
+      "correctOptionIds": [],
+      "correctTextAnswer": "state",
+      "explanation": "In a StateNotifier, you update the state by assigning to the 'state' property: state = newValue;. The StateNotifier automatically notifies all listeners when state is set to a new value. Never mutate the existing state object directly — always create a new instance.",
+      "difficultyLevel": 1,
+      "orderIndex": 8
     },
     {
-      "id": "sm_007",
-      "topicId": "state_management",
+      "id": "q_sm_010",
+      "topicId": "topic_state_management",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "Why is it important to use immutable state objects with StateNotifier?",
+      "questionText": "What is the purpose of ref.invalidate() in Riverpod?",
       "options": [
-        { "id": "sm_007_a", "text": "Immutable objects are smaller in memory." },
-        { "id": "sm_007_b", "text": "Riverpod uses value equality to detect state changes; mutating state in place bypasses change detection." },
-        { "id": "sm_007_c", "text": "Dart requires all objects passed to StateNotifier to be immutable." },
-        { "id": "sm_007_d", "text": "It's only a convention — mutable state works equally well." }
+        { "id": "a", "text": "Permanently disables a provider from being used" },
+        { "id": "b", "text": "Forces a provider to re-run its initialization logic on the next read" },
+        { "id": "c", "text": "Removes a provider from the ProviderScope" },
+        { "id": "d", "text": "Cancels any pending async operations in a FutureProvider" }
       ],
-      "correctOptionIds": ["sm_007_b"],
-      "explanation": "StateNotifier notifies listeners when `state` is replaced (not mutated). If you mutate the state object in place and re-assign the same reference, Riverpod sees no change and skips notifications. Always create a new object (e.g., via `copyWith()`) to replace state.",
+      "correctOptionIds": ["b"],
+      "explanation": "ref.invalidate() marks a provider as stale so it will be re-initialized on the next time it is accessed. This is useful for refreshing data (like re-fetching from an API) without permanently destroying the provider's state.",
       "difficultyLevel": 3,
-      "orderIndex": 6
+      "orderIndex": 9
     },
     {
-      "id": "nav_001",
-      "topicId": "navigation",
+      "id": "q_ui_001",
+      "topicId": "topic_ui_widgets",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "In Flutter's Navigator, what does `push()` do?",
+      "questionText": "What is the difference between mainAxisAlignment and crossAxisAlignment in a Row?",
       "options": [
-        { "id": "nav_001_a", "text": "It removes the current route from the navigation stack." },
-        { "id": "nav_001_b", "text": "It adds a new route on top of the navigation stack." },
-        { "id": "nav_001_c", "text": "It replaces the entire navigation stack with a new route." },
-        { "id": "nav_001_d", "text": "It sends data to the previous route." }
+        { "id": "a", "text": "mainAxisAlignment controls horizontal alignment; crossAxisAlignment controls vertical alignment" },
+        { "id": "b", "text": "They are interchangeable" },
+        { "id": "c", "text": "mainAxisAlignment controls vertical alignment; crossAxisAlignment controls horizontal alignment" },
+        { "id": "d", "text": "mainAxisAlignment only works in Column; crossAxisAlignment only works in Row" }
       ],
-      "correctOptionIds": ["nav_001_b"],
-      "explanation": "Navigator.push() overlays a new route on top of the current stack. The back button or Navigator.pop() will remove it and return to the previous route.",
+      "correctOptionIds": ["a"],
+      "explanation": "In a Row, the main axis is horizontal, so mainAxisAlignment controls horizontal positioning. The cross axis is vertical, so crossAxisAlignment controls vertical positioning. In a Column these are reversed: mainAxisAlignment is vertical, crossAxisAlignment is horizontal.",
       "difficultyLevel": 1,
       "orderIndex": 0
     },
     {
-      "id": "nav_002",
-      "topicId": "navigation",
+      "id": "q_ui_002",
+      "topicId": "topic_ui_widgets",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What is the difference between `Navigator.push()` and `Navigator.pushReplacement()`?",
+      "questionText": "What widget should you use to make a widget fill all available space in both directions?",
       "options": [
-        { "id": "nav_002_a", "text": "`pushReplacement()` adds the new route above the current route; `push()` replaces the entire stack." },
-        { "id": "nav_002_b", "text": "`push()` adds the new route and keeps the current one; `pushReplacement()` removes the current route and adds the new one in its place." },
-        { "id": "nav_002_c", "text": "They are identical." },
-        { "id": "nav_002_d", "text": "`pushReplacement()` only works with named routes." }
+        { "id": "a", "text": "Expanded" },
+        { "id": "b", "text": "Flexible" },
+        { "id": "c", "text": "SizedBox.expand()" },
+        { "id": "d", "text": "Container(width: double.infinity, height: double.infinity)" }
       ],
-      "correctOptionIds": ["nav_002_b"],
-      "explanation": "`push()` adds the new route on top of the stack, leaving the current route visible behind it. `pushReplacement()` removes the current route and replaces it with the new one — useful for login → home transitions where you don't want back to return to login.",
-      "difficultyLevel": 1,
+      "correctOptionIds": ["c"],
+      "explanation": "SizedBox.expand() creates a SizedBox that expands to fill all available space in both dimensions. Expanded only works in Row/Column flex contexts. Container with infinite dimensions may cause layout errors if there are no constraints from the parent.",
+      "difficultyLevel": 2,
       "orderIndex": 1
     },
     {
-      "id": "nav_003",
-      "topicId": "navigation",
+      "id": "q_ui_003",
+      "topicId": "topic_ui_widgets",
       "questionType": "text",
-      "answerType": "multiSelect",
-      "questionText": "Which of the following are advantages of GoRouter over Navigator 1.0? (Select all that apply)",
+      "answerType": "multipleChoice",
+      "questionText": "Which widget allows you to place children on top of each other?",
       "options": [
-        { "id": "nav_003_a", "text": "Declarative route configuration using a list of GoRoute objects." },
-        { "id": "nav_003_b", "text": "Built-in support for deep linking and URL-based navigation." },
-        { "id": "nav_003_c", "text": "Redirect guards that can evaluate state before navigation." },
-        { "id": "nav_003_d", "text": "It automatically generates navigation animations." }
+        { "id": "a", "text": "Column" },
+        { "id": "b", "text": "Overlay" },
+        { "id": "c", "text": "Stack" },
+        { "id": "d", "text": "IndexedStack" }
       ],
-      "correctOptionIds": ["nav_003_a", "nav_003_b", "nav_003_c"],
-      "explanation": "GoRouter is a declarative router that maps URL paths to screens, supports deep links, and provides redirect guards (e.g., for authentication). It does not automatically generate custom animations — those must still be configured manually.",
-      "difficultyLevel": 2,
+      "correctOptionIds": ["c"],
+      "explanation": "Stack places children on top of each other. Children are positioned using Positioned widgets within the Stack. The last child in the children list is drawn on top. IndexedStack is a subclass of Stack that shows only one child at a time by index.",
+      "difficultyLevel": 1,
       "orderIndex": 2
     },
     {
-      "id": "nav_004",
-      "topicId": "navigation",
+      "id": "q_ui_004",
+      "topicId": "topic_ui_widgets",
       "questionType": "text",
-      "answerType": "multipleChoice",
-      "questionText": "In GoRouter, what is a `ShellRoute` used for?",
+      "answerType": "multiSelect",
+      "questionText": "Which of the following are standard implicit animation widgets in Flutter? (Select all that apply)",
       "options": [
-        { "id": "nav_004_a", "text": "It creates a shell/container (e.g., a bottom navigation bar) that persists across its child routes." },
-        { "id": "nav_004_b", "text": "It is used to run native platform code from within Flutter." },
-        { "id": "nav_004_c", "text": "It creates a modal overlay over the current route." },
-        { "id": "nav_004_d", "text": "It defines a route that can only be accessed by authenticated users." }
+        { "id": "a", "text": "AnimatedContainer" },
+        { "id": "b", "text": "AnimatedOpacity" },
+        { "id": "c", "text": "TweenAnimationBuilder" },
+        { "id": "d", "text": "AnimatedBuilder" }
       ],
-      "correctOptionIds": ["nav_004_a"],
-      "explanation": "ShellRoute wraps a set of child routes with a shared UI shell — commonly a Scaffold with a BottomNavigationBar. As the user navigates between the child routes, the shell widget stays on screen without rebuilding.",
+      "correctOptionIds": ["a", "b", "c"],
+      "explanation": "AnimatedContainer and AnimatedOpacity are implicit animation widgets — they animate automatically between old and new property values. TweenAnimationBuilder is also implicit, taking a Tween and animating to the target value. AnimatedBuilder is an explicit animation widget that requires an AnimationController.",
       "difficultyLevel": 2,
       "orderIndex": 3
     },
     {
-      "id": "nav_005",
-      "topicId": "navigation",
+      "id": "q_ui_005",
+      "topicId": "topic_ui_widgets",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "How do you pass data from one route to another using GoRouter?",
+      "questionText": "What is MediaQuery used for in Flutter?",
       "options": [
-        { "id": "nav_005_a", "text": "Only through URL path parameters (e.g., `/user/:id`)." },
-        { "id": "nav_005_b", "text": "Through URL path parameters, query parameters, or the `extra` argument on `context.go()`/`context.push()`." },
-        { "id": "nav_005_c", "text": "Through a shared global variable." },
-        { "id": "nav_005_d", "text": "GoRouter does not support passing data between routes." }
+        { "id": "a", "text": "Playing media files (video and audio)" },
+        { "id": "b", "text": "Accessing device information like screen size, orientation, and text scale factor" },
+        { "id": "c", "text": "Fetching images from the internet" },
+        { "id": "d", "text": "Querying the device's sensor data" }
       ],
-      "correctOptionIds": ["nav_005_b"],
-      "explanation": "GoRouter supports multiple data passing mechanisms: path parameters (`:id` in routes), query parameters (`?key=value`), and an arbitrary `extra` object passed to `context.go()` or `context.push()`. The `extra` approach is most flexible but is not preserved across app restarts.",
+      "correctOptionIds": ["b"],
+      "explanation": "MediaQuery.of(context) provides information about the device's screen and system settings: size, orientation, devicePixelRatio, padding (safe areas), textScaleFactor, and more. Use MediaQuery.sizeOf(context) in Flutter 3.10+ for better performance.",
+      "difficultyLevel": 1,
+      "orderIndex": 4
+    },
+    {
+      "id": "q_ui_006",
+      "topicId": "topic_ui_widgets",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the purpose of the SafeArea widget?",
+      "options": [
+        { "id": "a", "text": "To prevent widgets from being tapped accidentally" },
+        { "id": "b", "text": "To add padding that avoids system intrusions like notches and home indicators" },
+        { "id": "c", "text": "To prevent sensitive data from appearing in screenshots" },
+        { "id": "d", "text": "To add rounded corners to a widget" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "SafeArea insets its child by the appropriate amount to avoid intrusions from the operating system: status bar, notch, home indicator, and navigation bar. It uses MediaQuery.of(context).padding internally. Always wrap screen content in SafeArea to handle notches.",
+      "difficultyLevel": 1,
+      "orderIndex": 5
+    },
+    {
+      "id": "q_ui_007",
+      "topicId": "topic_ui_widgets",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is a CustomPainter used for in Flutter?",
+      "options": [
+        { "id": "a", "text": "Applying custom colors to existing Material widgets" },
+        { "id": "b", "text": "Drawing arbitrary graphics directly to a canvas with low-level drawing APIs" },
+        { "id": "c", "text": "Creating custom widget layouts using rows and columns" },
+        { "id": "d", "text": "Customizing the app's theme painter" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "CustomPainter gives you direct access to the Canvas, allowing you to draw any shape, path, text, or image using methods like drawLine(), drawRect(), drawPath(), and drawImage(). It's used with the CustomPaint widget and is ideal for charts, custom shapes, and game rendering.",
+      "difficultyLevel": 2,
+      "orderIndex": 6
+    },
+    {
+      "id": "q_ui_008",
+      "topicId": "topic_ui_widgets",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "Which widget enables a smooth scrollable list where items are built lazily?",
+      "options": [
+        { "id": "a", "text": "Column with SingleChildScrollView" },
+        { "id": "b", "text": "ListView.builder" },
+        { "id": "c", "text": "Wrap" },
+        { "id": "d", "text": "Flow" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "ListView.builder is the correct choice for long or infinite lists. Items are built on demand as the user scrolls. A Column with SingleChildScrollView renders ALL children at once, which is inefficient for long lists.",
+      "difficultyLevel": 1,
+      "orderIndex": 7
+    },
+    {
+      "id": "q_ui_009",
+      "topicId": "topic_ui_widgets",
+      "questionType": "text",
+      "answerType": "textEntry",
+      "questionText": "What Flutter widget clips its child to a circular shape? (Enter the widget name)",
+      "options": [],
+      "correctOptionIds": [],
+      "correctTextAnswer": "ClipOval",
+      "explanation": "ClipOval clips its child widget to an oval (or circle if the child is square). CircleAvatar also creates circular images but with a specific avatar design. ClipOval is the general-purpose clipping widget for circular clips.",
+      "difficultyLevel": 2,
+      "orderIndex": 8
+    },
+    {
+      "id": "q_ui_010",
+      "topicId": "topic_ui_widgets",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the purpose of RepaintBoundary in Flutter?",
+      "options": [
+        { "id": "a", "text": "Prevents a widget from being repainted when its parent repaints" },
+        { "id": "b", "text": "Creates a visual boundary line around a widget" },
+        { "id": "c", "text": "Limits the area in which touch events are detected" },
+        { "id": "d", "text": "Prevents repainting of widgets outside the viewport" }
+      ],
+      "correctOptionIds": ["a"],
+      "explanation": "RepaintBoundary creates a separate layer for its child, so repainting the child doesn't cause the parent (or siblings) to repaint, and vice versa. It's a performance optimization useful for widgets that animate independently, like a live chart or a video player.",
+      "difficultyLevel": 3,
+      "orderIndex": 9
+    },
+    {
+      "id": "q_arch_001",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "In Clean Architecture, what is the correct direction of dependency?",
+      "options": [
+        { "id": "a", "text": "Domain depends on Data; Data depends on Presentation" },
+        { "id": "b", "text": "Presentation depends on Domain; Domain never depends on outer layers" },
+        { "id": "c", "text": "All layers are independent and don't depend on each other" },
+        { "id": "d", "text": "Data depends on Domain; Presentation depends on Data" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "In Clean Architecture, dependencies point inward: Presentation → Domain (via use cases) and Data → Domain (implements domain interfaces). The Domain layer is the innermost and most stable — it has zero dependencies on outer layers, making it independently testable.",
+      "difficultyLevel": 2,
+      "orderIndex": 0
+    },
+    {
+      "id": "q_arch_002",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What does GoRouter's redirect function do?",
+      "options": [
+        { "id": "a", "text": "Permanently replaces one route with another in the route table" },
+        { "id": "b", "text": "Intercepts navigation and optionally redirects to a different route based on app state" },
+        { "id": "c", "text": "Forwards HTTP requests to a different URL" },
+        { "id": "d", "text": "Resets the navigation stack to the initial route" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "GoRouter's redirect callback is called on every navigation attempt. Returning a non-null string redirects to that route; returning null allows the navigation to proceed. It's the correct place to implement auth guards, onboarding checks, and other navigation-level logic.",
+      "difficultyLevel": 2,
+      "orderIndex": 1
+    },
+    {
+      "id": "q_arch_003",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is the purpose of the Repository pattern in Flutter apps?",
+      "options": [
+        { "id": "a", "text": "Storing code in version control repositories" },
+        { "id": "b", "text": "Abstracting data sources behind a single interface to decouple business logic from data fetching details" },
+        { "id": "c", "text": "Caching network responses on disk" },
+        { "id": "d", "text": "Providing a global registry of singleton objects" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "The Repository pattern abstracts where data comes from (network, local database, cache) behind a clean interface. The domain layer calls the repository interface without knowing whether data comes from an API or local storage. This makes testing easy — swap the real repo with a fake one.",
+      "difficultyLevel": 2,
+      "orderIndex": 2
+    },
+    {
+      "id": "q_arch_004",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multiSelect",
+      "questionText": "Which of the following are recommended Flutter testing approaches? (Select all that apply)",
+      "options": [
+        { "id": "a", "text": "Unit tests for business logic and models" },
+        { "id": "b", "text": "Widget tests for UI components in isolation" },
+        { "id": "c", "text": "Integration tests for full user flows on a real device or emulator" },
+        { "id": "d", "text": "Manual testing only — automated tests are not needed for mobile" }
+      ],
+      "correctOptionIds": ["a", "b", "c"],
+      "explanation": "Flutter supports three levels of testing: unit tests (fast, test logic in isolation), widget tests (test UI widgets with a simulated Flutter engine), and integration tests (run on a real device or emulator, test full flows). All three complement each other and are recommended.",
+      "difficultyLevel": 1,
+      "orderIndex": 3
+    },
+    {
+      "id": "q_arch_005",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is dependency injection and why is it useful in Flutter?",
+      "options": [
+        { "id": "a", "text": "A way to inject CSS styles into Flutter widgets" },
+        { "id": "b", "text": "Providing dependencies to classes from outside rather than creating them internally, enabling testability" },
+        { "id": "c", "text": "A method to inject code at runtime using reflection" },
+        { "id": "d", "text": "Automatically importing packages based on usage" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "Dependency injection means providing a class with its dependencies externally (via constructor, property, or a DI framework) rather than having it create them. This makes code more testable (inject mocks), more flexible, and loosely coupled. Riverpod, GetIt, and injectable are common DI approaches in Flutter.",
       "difficultyLevel": 2,
       "orderIndex": 4
     },
     {
-      "id": "nav_006",
-      "topicId": "navigation",
+      "id": "q_arch_006",
+      "topicId": "topic_architecture",
       "questionType": "text",
-      "answerType": "textEntry",
-      "questionText": "What GoRouter method replaces the current route without leaving it on the navigation stack (equivalent to Navigator.pushReplacement)?",
-      "correctTextAnswer": "context.pushReplacement",
-      "explanation": "`context.pushReplacement(path)` in GoRouter replaces the current top-most location on the stack. The previous route is removed so the user cannot navigate back to it with the back button.",
-      "difficultyLevel": 2,
+      "answerType": "multipleChoice",
+      "questionText": "What does the 'flutter analyze' command do?",
+      "options": [
+        { "id": "a", "text": "Runs all unit and widget tests" },
+        { "id": "b", "text": "Analyzes Dart code for errors, warnings, and style violations using the analyzer" },
+        { "id": "c", "text": "Analyzes app performance and memory usage" },
+        { "id": "d", "text": "Checks for outdated packages in pubspec.yaml" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "flutter analyze runs the Dart static analyzer on your project. It reports errors (code that won't compile), warnings (potential issues), and lint suggestions (style rules from analysis_options.yaml). Running it as part of CI ensures code quality standards are maintained.",
+      "difficultyLevel": 1,
       "orderIndex": 5
     },
     {
-      "id": "nav_007",
-      "topicId": "navigation",
+      "id": "q_arch_007",
+      "topicId": "topic_architecture",
       "questionType": "text",
       "answerType": "multipleChoice",
-      "questionText": "What happens when `context.go()` is called in GoRouter?",
+      "questionText": "What is the purpose of pubspec.yaml in a Flutter project?",
       "options": [
-        { "id": "nav_007_a", "text": "It pushes the new location on top of the current stack." },
-        { "id": "nav_007_b", "text": "It navigates to the new location and clears the entire navigation stack, making it the new base." },
-        { "id": "nav_007_c", "text": "It pops the current route and returns to the previous one." },
-        { "id": "nav_007_d", "text": "It shows a dialog overlay at the new route." }
+        { "id": "a", "text": "Configuring build scripts for Android and iOS" },
+        { "id": "b", "text": "Declaring the app's name, version, dependencies, and assets" },
+        { "id": "c", "text": "Storing app secrets and API keys" },
+        { "id": "d", "text": "Defining the widget tree structure" }
       ],
-      "correctOptionIds": ["nav_007_b"],
-      "explanation": "`context.go()` performs an absolute navigation — it replaces the entire navigation stack with the new location. Use `context.push()` when you want to add to the stack and allow the user to go back.",
-      "difficultyLevel": 2,
+      "correctOptionIds": ["b"],
+      "explanation": "pubspec.yaml is the manifest file for a Dart/Flutter project. It declares: the app name and description, the SDK version constraints, all package dependencies (with versions), dev dependencies, and Flutter-specific config like asset paths and font declarations.",
+      "difficultyLevel": 1,
       "orderIndex": 6
+    },
+    {
+      "id": "q_arch_008",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What does GoRouter's ShellRoute do?",
+      "options": [
+        { "id": "a", "text": "Adds a shell script execution capability to Flutter apps" },
+        { "id": "b", "text": "Wraps child routes in a shared widget (like a bottom nav bar) that persists across navigation" },
+        { "id": "c", "text": "Creates a nested navigation stack that operates independently" },
+        { "id": "d", "text": "Provides a terminal-like debug interface for navigation" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "ShellRoute wraps its child routes in a persistent shared widget — typically a Scaffold with a bottom navigation bar. When navigating between shell routes, the shell widget stays mounted while only the body (child) changes, avoiding rebuilds of the navigation bar.",
+      "difficultyLevel": 2,
+      "orderIndex": 7
+    },
+    {
+      "id": "q_arch_009",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "textEntry",
+      "questionText": "What command installs new packages listed in pubspec.yaml? (Enter the full command without 'flutter ')",
+      "options": [],
+      "correctOptionIds": [],
+      "correctTextAnswer": "pub get",
+      "explanation": "Running 'flutter pub get' downloads and installs all packages listed in pubspec.yaml and updates pubspec.lock. Always run this after modifying pubspec.yaml or when cloning a project for the first time.",
+      "difficultyLevel": 1,
+      "orderIndex": 8
+    },
+    {
+      "id": "q_arch_010",
+      "topicId": "topic_architecture",
+      "questionType": "text",
+      "answerType": "multipleChoice",
+      "questionText": "What is tree shaking in the context of Flutter/Dart compilation?",
+      "options": [
+        { "id": "a", "text": "Removing unused widgets from the widget tree at runtime" },
+        { "id": "b", "text": "Eliminating unused code during compilation to reduce the final app size" },
+        { "id": "c", "text": "A garbage collection algorithm for the Dart VM" },
+        { "id": "d", "text": "Removing broken branches from the dependency tree" }
+      ],
+      "correctOptionIds": ["b"],
+      "explanation": "Tree shaking is a dead-code elimination technique performed by the Dart compiler during release builds. Code (functions, classes, constants) that is never referenced is removed from the final binary, significantly reducing app size. This is one reason why importing unused packages still has a size cost.",
+      "difficultyLevel": 3,
+      "orderIndex": 9
     }
   ]
 }

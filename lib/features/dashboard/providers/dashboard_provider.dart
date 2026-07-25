@@ -4,7 +4,6 @@ import '../../../core/models/exam_session.dart';
 import '../../../core/models/topic_progress.dart';
 import '../../../core/providers/hive_provider.dart';
 import '../../../core/providers/question_data_provider.dart';
-import '../../../core/services/question_loader_service.dart';
 
 class DashboardSummary {
   final double overallAccuracy;

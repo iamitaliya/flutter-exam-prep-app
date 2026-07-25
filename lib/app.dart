@@ -33,10 +33,10 @@ class App extends ConsumerWidget {
     switch (mode) {
       case 'light':
         return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
+      case 'system':
+        return ThemeMode.system;
       default:
-        return ThemeMode.dark; // default to dark for premium look
+        return ThemeMode.dark; // default dark for premium look
     }
   }
 }

@@ -17,13 +17,16 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final settings = ref.watch(userSettingsProvider);
+  // Read the notifier once — the router is created once and never recreated.
+  // The redirect closure captures the notifier and reads .state on every
+  // navigation attempt, so it always sees the latest onboardingComplete value.
+  final notifier = ref.read(userSettingsProvider.notifier);
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: RouteNames.splash,
     redirect: (context, state) {
-      final isOnboarded = settings.onboardingComplete;
+      final isOnboarded = notifier.state.onboardingComplete;
       final path = state.uri.path;
 
       if (path == RouteNames.splash) return null;

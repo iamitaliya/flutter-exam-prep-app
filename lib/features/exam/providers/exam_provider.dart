@@ -1,12 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../core/models/exam_session.dart';
 import '../../../core/models/question.dart';
 import '../../../core/providers/hive_provider.dart';
 import '../../settings/providers/settings_provider.dart';
-
-const _uuid = Uuid();
 
 /// Immutable snapshot of the in-progress exam session.
 class ExamState {
